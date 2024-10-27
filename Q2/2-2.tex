@@ -1,119 +1,57 @@
-% Options for packages loaded elsewhere
-\PassOptionsToPackage{unicode}{hyperref}
-\PassOptionsToPackage{hyphens}{url}
-%
-\documentclass[
-]{article}
+\documentclass{article}
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
 \usepackage{iftex}
-\ifPDFTeX
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provide euro and other symbols
-\else % if luatex or xetex
-  \usepackage{unicode-math}
-  \defaultfontfeatures{Scale=MatchLowercase}
-  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
-\fi
-% Use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
-\makeatletter
-\@ifundefined{KOMAClassName}{% if non-KOMA class
-  \IfFileExists{parskip.sty}{%
-    \usepackage{parskip}
-  }{% else
-    \setlength{\parindent}{0pt}
-    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
-}{% if KOMA class
-  \KOMAoptions{parskip=half}}
-\makeatother
-\usepackage{xcolor}
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
-\hypersetup{
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
 
 \author{}
 \date{}
 
 \begin{document}
 
-MAPE, or Mean Absolute Percentage Error, is defined as the average of
-the percentage error between the actual and forecasted values. It is
-calculated as:
+\section{Question 2}
+
+\subsection{Part 2}
+
+Mean Absolute Percentage Error, or MAPE, is defined as the average of the percentage error between the actual and forecasted values. It is calculated as:
 
 \[
 \text{MAPE} = \frac{1}{n} \sum_{t=1}^{n} \left| \frac{A_t - F_t}{A_t} \right| \times 100
 \]
 
-There are several advantages to using MAPE:
+where $A_t$ and $F_t$ are the actual and forecasted values at time $t$, respectively.
+
+\subsubsection{Advantages of using MAPE}
+
+\begin{itemize}
+    \item It is easy to interpret since it is expressed as a    percentage.
+    
+    \item Furthermore, it allows for comparison across different time periods and scales
+\end{itemize}
+
+\subsubsection{Disadvantages of using MAPE}
+
+The context of predicting the number of passengers that an
+airline will carry poses some unique limitations to the usefulness of MAPE.
+
+\begin{itemize}
+    \item \textbf{Asymmetric Costs:} MAPE treats over-predictions and  under-predictions equally, which could be disastrous in this setting. Whereas overprediction may lead to some unnecessary operational costs, underprediction results in an inadequate fleet capacity, lost revenue and disgruntled customers. Therefore, our performance metric needs to take this into account.
+    
+    \item \textbf{Inability to Capture Peak Demand:} For fleet management and hiring, understanding peak demand is crucial. MAPE averages out the errors across all data points, which can mask important peaks or troughs in demand.
+    
+    \item \textbf{Instability with Low Values:} MAPE can become disproportionately large when actual values approach zero. Given that passenger numbers can vary significantly (from 150,000 to over 6,000,000), low passenger counts in certain months could lead to extremely high percentage errors, misleading decision-making.
+\end{itemize}
+
+\subsubsection{Alternatives to using MAPE}
+
+Since the fleet requirements are constrained by the total number of passengers expected while human resources requirements are usually constrained by peak demand, there are some alternative evaluations to consider.
 
 \begin{enumerate}
-\def\labelenumi{\arabic{enumi})}
-\item
-  It is easy to interpret since it is expressed as a percentage.
-\item
-  Furthermore, it allows for comparison across different time periods
-  and scales
-\end{enumerate}
-
-However, the context of predicting the number of passengers that an
-airline will carry in the future poses some limitations to the
-usefulness of MAPE:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi})}
-\item
-  \textbf{Asymmetric Costs:} MAPE treats over-predictions and
-  under-predictions equally, which could be disastrous in this setting.
-  Whereas overprediction may lead to some unnecessary operational costs,
-  underprediction results in an inadequate fleet capacity, lost revenue
-  and disgruntled customers. Therefore, our performance metric needs to
-  take this into account.
-\item
-  \textbf{Inability to Capture Peak Demand:} For fleet management and
-  hiring, understanding peak demand is crucial. MAPE averages out the
-  errors across all data points, which can mask important peaks or
-  troughs in demand.
-\item
-  \textbf{Instability with Low Values:} MAPE can become
-  disproportionately large when actual values approach zero. Given that
-  passenger numbers can vary significantly (from 150,000 to over
-  6,000,000), low passenger counts in certain months could lead to
-  extremely high percentage errors, misleading decision-making.
-\end{enumerate}
-
-Given that the fleet requirements are constrained by the total number of
-passengers expected while human resources requirements are usually
-constrained by peak demand, here are some alternative metrics to
-evaluate forecast performance:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi})}
-\item
-  \textbf{Mean Absolute Error (MAE):}
-
-  \begin{itemize}
-  \item
-    MAE calculates the average of the absolute differences between the
-    actual passenger numbers and the forecasted numbers.
-  \end{itemize}
-\end{enumerate}
-
+    \item \textbf{Mean Absolute Error (MAE):}
+      \begin{itemize}
+          \item
+            MAE calculates the average of the absolute differences between the
+            actual passenger numbers and the forecasted numbers.
+      \end{itemize} 
 \[
 \text{MAE} = \frac{1}{n} \sum_{t=1}^{n} |A_t - F_t|
 \]
@@ -130,9 +68,6 @@ evaluate forecast performance:
   error. Also, it captures only the mean error and not the peak error.
 \end{itemize}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi})}
-\setcounter{enumi}{1}
 \item
   \textbf{Weighted MAE:}
 
@@ -153,7 +88,6 @@ evaluate forecast performance:
     MaxAE identifies the largest absolute error among all forecasted
     values compared to the actual values.
   \end{itemize}
-\end{enumerate}
 
 \[
 \text{MaxAE} = \max(|A_t - F_t|) \quad \text{for } t = 1, 2, \ldots, n
@@ -165,15 +99,10 @@ evaluate forecast performance:
   forecasting error. This is particularly critical for human resource
   planning.
 \end{itemize}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi})}
-\setcounter{enumi}{3}
-\item
-  \textbf{A} \textbf{Combination of MAE and MaxAE}:
+\item \textbf{A Combination of MAE and MaxAE}:
 
   \begin{itemize}
-  \item One can use MAE to plan fleet capacity based on total expected passengers and use MaxAE to ensure operational readiness for peak periods based on worst-case scenarios.
+      \item One can use MAE to plan fleet capacity based on total expected passengers and use MaxAE to ensure operational readiness for peak periods based on worst-case scenarios.
   \end{itemize}
   
 \end{enumerate}

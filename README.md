@@ -22,27 +22,6 @@ The project is structured into two analytical components:
 
 ---
 
-## 🏗️ Methodological Pipeline
-
-```mermaid
-flowchart TD
-    subgraph Part1["Part 1: Time Series Forecasting (Q1_c_lin.ipynb)"]
-        Raw["Raw Time Series Data"] --> ADF["Augmented Dickey-Fuller (ADF) Stationarity Test"]
-        ADF --> Diff["Differencing & Seasonal Decomposition"]
-        Diff --> ACF["ACF & PACF Diagnostic Lag Plots"]
-        ACF --> Models["Grid Model Evaluation<br/>- ARIMA (p, d, q)<br/>- SARIMA (P, D, Q, s)<br/>- Holt-Winters ETS"]
-        Models --> Forecast["Out-of-Sample Forecasting & Residual Diagnostics"]
-    end
-
-    subgraph Part2["Part 2: Anomaly Detection (Q2_c_rolling_Stats.ipynb)"]
-        Feat["Transaction & Activity Streams"] --> Roll["Rolling Window Feature Statistics"]
-        Roll --> KDE["Epanechnikov Kernel Density Estimator (KDE)"]
-        KDE --> Prob["Log-Likelihood Density Scoring"]
-        Prob --> Anomaly["Dynamic Thresholding ➔ Low-Probability Fraud Flags"]
-    end
-```
-
----
 
 ## 🔬 Core Implementations
 
